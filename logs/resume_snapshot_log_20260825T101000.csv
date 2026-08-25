@@ -1,0 +1,2 @@
+runTimestamp,applicationId,candidateId,status,attachmentPresent,errorMessage
+2026-08-25T10:10:00Z,547994,1104908,FAILED,false,"Integration error: Upsert failed for application 547994: entity type is NOT allowed to be null or empty. | Details: {'status_code': 400, 'sf_message': ""{'key': None, 'status': 'ERROR', 'editStatus': 'UPSERTED', 'message': 'entity type is NOT allowed to be null or empty.', 'index': 0, 'httpCode': 400, 'inlineResults': None}""}"

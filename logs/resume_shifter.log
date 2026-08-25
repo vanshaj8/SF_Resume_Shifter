@@ -1,0 +1,183 @@
+2026-08-25 15:19:27 [INFO] [ResumeShifter] /Users/vanshajsharma/Resume_Shifter/main.py:163: Initializing in MOCK mode with in-memory SuccessFactors test database.
+2026-08-25 15:19:27 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 1001
+2026-08-25 15:19:27 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1001 | Candidate ID: 501 ---
+2026-08-25 15:19:27 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_A.pdf' (module=RECRUITING, size_b64=48 bytes).
+2026-08-25 15:19:27 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'Resume_A.pdf' directly into JobApplication 1001 Cust_Candidate_Resume...
+2026-08-25 15:19:27 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 1001 Cust_Candidate_Resume persistence...
+2026-08-25 15:19:27 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 1001 (Attachment ID: 20001, File: 'Resume_A.pdf').
+2026-08-25 15:19:27 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 1001
+2026-08-25 15:19:35 [INFO] [ResumeShifter] /Users/vanshajsharma/Resume_Shifter/main.py:163: Initializing in MOCK mode with in-memory SuccessFactors test database.
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:37: Watermark file does not exist at '/Users/vanshajsharma/Resume_Shifter/watermark.txt'. Initial run without watermark.
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:168: ================================================================================
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:169: Starting Resume Shifter Batch Execution
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:170: Run Timestamp: 2026-08-25T09:49:35Z
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:171: Active Watermark: None
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:172: Dry Run Mode: False
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:173: ================================================================================
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:64: Starting application discovery (Watermark: None (Initial Full Run), Page Size: 1000)...
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:84: Page 1 retrieved 4 application record(s).
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1002 | Candidate ID: 501 ---
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:70: [Step 1] WRITE-ONCE Enforced: JobApplication 1002 already has Cust_Candidate_Resume populated (Attachment ID: 90001, File: 'Historic_Frozen_Resume.pdf'). Skipping copy to preserve frozen historical snapshot.
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1001 | Candidate ID: 501 ---
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_A.pdf' (module=RECRUITING, size_b64=48 bytes).
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'Resume_A.pdf' directly into JobApplication 1001 Cust_Candidate_Resume...
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 1001 Cust_Candidate_Resume persistence...
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 1001 (Attachment ID: 20001, File: 'Resume_A.pdf').
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 1001
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1003 | Candidate ID: 503 ---
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:102: [Step 3] Candidate 503 profile has no active resume or fileContent is empty. Skipping application 1003.
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1004 | Candidate ID: 502 ---
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_C.pdf' (module=RECRUITING, size_b64=52 bytes).
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'Resume_C.pdf' directly into JobApplication 1004 Cust_Candidate_Resume...
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 1004 Cust_Candidate_Resume persistence...
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 1004 (Attachment ID: 20002, File: 'Resume_C.pdf').
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 1004
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:96: Discovery complete. Total applications discovered: 4
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:216: Batch completed successfully. Advancing watermark to run timestamp: 2026-08-25T09:49:35Z
+2026-08-25 15:19:35 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:88: Committed new watermark: 2026-08-25T09:49:35Z to /Users/vanshajsharma/Resume_Shifter/watermark.txt
+2026-08-25 15:19:35 [INFO] [ResumeShifter.CSVLogger] /Users/vanshajsharma/Resume_Shifter/logging_utils/csv_logger.py:103: Recorded batch run summary in /Users/vanshajsharma/Resume_Shifter/resume_snapshot_run_summary.csv
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:229: ================================================================================
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:230: Resume Shifter Batch Execution Summary
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:231: Run Status:            COMPLETED
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:232: Applications Found:    4
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:233: Succeeded:             2
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:234: Skipped (Already Set): 1
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:235: Skipped (No Resume):   1
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:236: Failed:                0
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:237: Log CSV:               /Users/vanshajsharma/Resume_Shifter/logs/resume_snapshot_log_20260825T094935.csv
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:238: Summary CSV:           /Users/vanshajsharma/Resume_Shifter/resume_snapshot_run_summary.csv
+2026-08-25 15:19:35 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:239: ================================================================================
+2026-08-25 15:19:50 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:54: Loaded watermark: 2026-08-25T09:49:35Z
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:88: Committed new watermark: 2026-08-01T00:00:00Z to /Users/vanshajsharma/Resume_Shifter/watermark.txt
+2026-08-25 15:19:54 [INFO] [ResumeShifter] /Users/vanshajsharma/Resume_Shifter/main.py:163: Initializing in MOCK mode with in-memory SuccessFactors test database.
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:54: Loaded watermark: 2026-08-01T00:00:00Z
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:168: ================================================================================
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:169: Starting Resume Shifter Batch Execution
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:170: Run Timestamp: 2026-08-25T09:49:54Z
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:171: Active Watermark: 2026-08-01T00:00:00Z
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:172: Dry Run Mode: True
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:173: ================================================================================
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:64: Starting application discovery (Watermark: 2026-08-01T00:00:00Z, Page Size: 1000)...
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:84: Page 1 retrieved 3 application record(s).
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1001 | Candidate ID: 501 ---
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_A.pdf' (module=RECRUITING, size_b64=48 bytes).
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:136: [DRY RUN] [Step 5 & 6 Skipped] Would upsert 'Resume_A.pdf' into JobApplication 1001. Cust_Candidate_Resume.
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1003 | Candidate ID: 503 ---
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:102: [Step 3] Candidate 503 profile has no active resume or fileContent is empty. Skipping application 1003.
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1004 | Candidate ID: 502 ---
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_C.pdf' (module=RECRUITING, size_b64=52 bytes).
+2026-08-25 15:19:54 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:136: [DRY RUN] [Step 5 & 6 Skipped] Would upsert 'Resume_C.pdf' into JobApplication 1004. Cust_Candidate_Resume.
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:96: Discovery complete. Total applications discovered: 3
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:223: [DRY RUN] Watermark not updated.
+2026-08-25 15:19:54 [INFO] [ResumeShifter.CSVLogger] /Users/vanshajsharma/Resume_Shifter/logging_utils/csv_logger.py:103: Recorded batch run summary in /Users/vanshajsharma/Resume_Shifter/resume_snapshot_run_summary.csv
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:229: ================================================================================
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:230: Resume Shifter Batch Execution Summary
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:231: Run Status:            COMPLETED
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:232: Applications Found:    3
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:233: Succeeded:             2
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:234: Skipped (Already Set): 0
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:235: Skipped (No Resume):   1
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:236: Failed:                0
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:237: Log CSV:               /Users/vanshajsharma/Resume_Shifter/logs/resume_snapshot_log_20260825T094954.csv
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:238: Summary CSV:           /Users/vanshajsharma/Resume_Shifter/resume_snapshot_run_summary.csv
+2026-08-25 15:19:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:239: ================================================================================
+2026-08-25 15:19:59 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:54: Loaded watermark: 2026-08-01T00:00:00Z
+2026-08-25 15:21:05 [INFO] [ResumeShifter] /Users/vanshajsharma/Resume_Shifter/main.py:163: Initializing in MOCK mode with in-memory SuccessFactors test database.
+2026-08-25 15:21:05 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 1001
+2026-08-25 15:21:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1001 | Candidate ID: 501 ---
+2026-08-25 15:21:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_A.pdf' (module=RECRUITING, size_b64=48 bytes).
+2026-08-25 15:21:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'Resume_A.pdf' directly into JobApplication 1001 Cust_Candidate_Resume...
+2026-08-25 15:21:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 1001 Cust_Candidate_Resume persistence...
+2026-08-25 15:21:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 1001 (Attachment ID: 20001, File: 'Resume_A.pdf').
+2026-08-25 15:21:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 1001
+2026-08-25 15:21:20 [INFO] [ResumeShifter] /Users/vanshajsharma/Resume_Shifter/main.py:163: Initializing in MOCK mode with in-memory SuccessFactors test database.
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:54: Loaded watermark: 2026-08-01T00:00:00Z
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:168: ================================================================================
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:169: Starting Resume Shifter Batch Execution
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:170: Run Timestamp: 2026-08-25T09:51:20Z
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:171: Active Watermark: 2026-08-01T00:00:00Z
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:172: Dry Run Mode: False
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:173: ================================================================================
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:64: Starting application discovery (Watermark: 2026-08-01T00:00:00Z, Page Size: 1000)...
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:84: Page 1 retrieved 3 application record(s).
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1001 | Candidate ID: 501 ---
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_A.pdf' (module=RECRUITING, size_b64=48 bytes).
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'Resume_A.pdf' directly into JobApplication 1001 Cust_Candidate_Resume...
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 1001 Cust_Candidate_Resume persistence...
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 1001 (Attachment ID: 20001, File: 'Resume_A.pdf').
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 1001
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1003 | Candidate ID: 503 ---
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:102: [Step 3] Candidate 503 profile has no active resume or fileContent is empty. Skipping application 1003.
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 1004 | Candidate ID: 502 ---
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'Resume_C.pdf' (module=RECRUITING, size_b64=52 bytes).
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'Resume_C.pdf' directly into JobApplication 1004 Cust_Candidate_Resume...
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 1004 Cust_Candidate_Resume persistence...
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 1004 (Attachment ID: 20002, File: 'Resume_C.pdf').
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 1004
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:96: Discovery complete. Total applications discovered: 3
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:216: Batch completed successfully. Advancing watermark to run timestamp: 2026-08-25T09:51:20Z
+2026-08-25 15:21:20 [INFO] [ResumeShifter.Watermark] /Users/vanshajsharma/Resume_Shifter/core/watermark.py:88: Committed new watermark: 2026-08-25T09:51:20Z to /Users/vanshajsharma/Resume_Shifter/watermark.txt
+2026-08-25 15:21:20 [INFO] [ResumeShifter.CSVLogger] /Users/vanshajsharma/Resume_Shifter/logging_utils/csv_logger.py:103: Recorded batch run summary in /Users/vanshajsharma/Resume_Shifter/resume_snapshot_run_summary.csv
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:229: ================================================================================
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:230: Resume Shifter Batch Execution Summary
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:231: Run Status:            COMPLETED
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:232: Applications Found:    3
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:233: Succeeded:             2
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:234: Skipped (Already Set): 0
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:235: Skipped (No Resume):   1
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:236: Failed:                0
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:237: Log CSV:               /Users/vanshajsharma/Resume_Shifter/logs/resume_snapshot_log_20260825T095120.csv
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:238: Summary CSV:           /Users/vanshajsharma/Resume_Shifter/resume_snapshot_run_summary.csv
+2026-08-25 15:21:20 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:239: ================================================================================
+2026-08-25 15:27:10 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 547901
+2026-08-25 15:27:11 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 547901 | Candidate ID: 1104827 ---
+2026-08-25 15:27:11 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:70: [Step 1] WRITE-ONCE Enforced: JobApplication 547901 already has Cust_Candidate_Resume populated (Attachment ID: 1516849, File: 'Candidate_Resume.pdf'). Skipping copy to preserve frozen historical snapshot.
+2026-08-25 15:40:00 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 547994
+2026-08-25 15:40:01 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:40:02 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'resume (2).pdf' (module=RECRUITING, size_b64=2362 bytes).
+2026-08-25 15:40:02 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'resume (2).pdf' directly into JobApplication 547994 Cust_Candidate_Resume...
+2026-08-25 15:40:02 [ERROR] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:196: [Step 7] Result: FAILED for Application 547994. Reason: Integration error: Upsert failed for application 547994: entity type is NOT allowed to be null or empty. | Details: {'status_code': 400, 'sf_message': "{'key': None, 'status': 'ERROR', 'editStatus': 'UPSERTED', 'message': 'entity type is NOT allowed to be null or empty.', 'index': 0, 'httpCode': 400, 'inlineResults': None}"}
+2026-08-25 15:41:08 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 547994
+2026-08-25 15:41:09 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:41:09 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:70: [Step 1] WRITE-ONCE Enforced: JobApplication 547994 already has Cust_Candidate_Resume populated (Attachment ID: 1516859, File: 'resume (2).pdf'). Skipping copy to preserve frozen historical snapshot.
+2026-08-25 15:45:05 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 547994
+2026-08-25 15:45:06 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:45:06 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:117: [Step 3] Found valid candidate resume: 'resume (2).pdf' (module=RECRUITING, size_b64=2362 bytes).
+2026-08-25 15:45:06 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:153: [Step 5] Upserting resume 'resume (2).pdf' directly into JobApplication 547994 Cust_Candidate_Resume...
+2026-08-25 15:45:08 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:168: [Step 6] Verifying JobApplication 547994 Cust_Candidate_Resume persistence...
+2026-08-25 15:45:09 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:174: [Step 6] Verification passed for application 547994 (Attachment ID: 1516862, File: 'resume (2).pdf').
+2026-08-25 15:45:09 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:184: [Step 7] Result: SUCCESS for Application 547994
+2026-08-25 15:45:28 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:127: Executing SINGLE APPLICATION mode for applicationId: 547994
+2026-08-25 15:45:29 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:60: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:45:29 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:70: [Step 1] WRITE-ONCE Enforced: JobApplication 547994 already has Cust_Candidate_Resume populated (Attachment ID: 1516862, File: 'resume (2).pdf'). Skipping copy to preserve frozen historical snapshot.
+2026-08-25 15:49:04 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:130: Executing SINGLE APPLICATION mode for applicationId: 547994 (force=True)
+2026-08-25 15:49:04 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:61: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:49:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:121: [Step 3] Found valid candidate resume: 'resume (2).pdf' (module=RECRUITING, size_b64=2362 bytes).
+2026-08-25 15:49:05 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:162: [Step 5] Upserting resume 'CandidateResume_1104908.pdf' directly into JobApplication 547994 Cust_Candidate_Resume...
+2026-08-25 15:49:07 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:177: [Step 6] Verifying JobApplication 547994 Cust_Candidate_Resume persistence...
+2026-08-25 15:49:08 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:183: [Step 6] Verification passed for application 547994 (Attachment ID: 1516867, File: 'CandidateResume_1104908.pdf').
+2026-08-25 15:49:08 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:193: [Step 7] Result: SUCCESS for Application 547994
+2026-08-25 15:49:18 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:130: Executing SINGLE APPLICATION mode for applicationId: 547994 (force=False)
+2026-08-25 15:49:18 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:61: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:49:18 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:71: [Step 1] WRITE-ONCE Enforced: JobApplication 547994 already has Cust_Candidate_Resume populated (Attachment ID: 1516867, File: 'CandidateResume_1104908.pdf'). Skipping copy to preserve frozen historical snapshot.
+2026-08-25 15:56:18 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:130: Executing SINGLE APPLICATION mode for applicationId: 547994 (force=True)
+2026-08-25 15:56:19 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:61: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:56:19 [WARNING] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:88: [Step 1] FORCE flag enabled: Bypassing WRITE-ONCE check for application 547994.
+2026-08-25 15:56:19 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:121: [Step 3] Found valid candidate resume: 'resume (2).pdf' (module=RECRUITING, size_b64=2362 bytes).
+2026-08-25 15:56:19 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:158: [Step 5] Upserting resume 'resume (2).pdf' directly into JobApplication 547994 Cust_Candidate_Resume...
+2026-08-25 15:56:22 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:173: [Step 6] Verifying JobApplication 547994 Cust_Candidate_Resume persistence...
+2026-08-25 15:56:22 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:179: [Step 6] Verification passed for application 547994 (Attachment ID: 1516867, File: 'CandidateResume_1104908.pdf').
+2026-08-25 15:56:22 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:189: [Step 7] Result: SUCCESS for Application 547994
+2026-08-25 15:56:32 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:130: Executing SINGLE APPLICATION mode for applicationId: 547994 (force=False)
+2026-08-25 15:56:33 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:61: --- Processing Application ID: 547994 | Candidate ID: 1104908 ---
+2026-08-25 15:56:33 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:71: [Step 1] WRITE-ONCE Enforced: JobApplication 547994 already has Cust_Candidate_Resume populated (Attachment ID: 1516867, File: 'CandidateResume_1104908.pdf'). Skipping copy to preserve frozen historical snapshot.
+2026-08-25 16:00:43 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:130: Executing SINGLE APPLICATION mode for applicationId: 547998 (force=False)
+2026-08-25 16:00:43 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:61: --- Processing Application ID: 547998 | Candidate ID: 1104911 ---
+2026-08-25 16:00:44 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:121: [Step 3] Found valid candidate resume: 'Consultant - Consulting.pdf' (module=RECRUITING, size_b64=138598 bytes).
+2026-08-25 16:00:44 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:158: [Step 5] Upserting resume 'Consultant - Consulting.pdf' directly into JobApplication 547998 Cust_Candidate_Resume...
+2026-08-25 16:00:46 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:173: [Step 6] Verifying JobApplication 547998 Cust_Candidate_Resume persistence...
+2026-08-25 16:00:47 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:179: [Step 6] Verification passed for application 547998 (Attachment ID: 1516879, File: 'Consultant - Consulting.pdf').
+2026-08-25 16:00:47 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:189: [Step 7] Result: SUCCESS for Application 547998
+2026-08-25 16:00:54 [INFO] [ResumeShifter.BatchEngine] /Users/vanshajsharma/Resume_Shifter/core/engine.py:130: Executing SINGLE APPLICATION mode for applicationId: 547998 (force=False)
+2026-08-25 16:00:55 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:61: --- Processing Application ID: 547998 | Candidate ID: 1104911 ---
+2026-08-25 16:00:55 [INFO] [ResumeShifter.Processor] /Users/vanshajsharma/Resume_Shifter/core/processor.py:71: [Step 1] WRITE-ONCE Enforced: JobApplication 547998 already has Cust_Candidate_Resume populated (Attachment ID: 1516879, File: 'Consultant - Consulting.pdf'). Skipping copy to preserve frozen historical snapshot.

@@ -1,0 +1,4 @@
+runTimestamp,applicationsFound,succeeded,skippedAlreadySet,skippedNoResume,failed,runStatus
+2026-08-25T09:49:35Z,4,2,1,1,0,COMPLETED
+2026-08-25T09:49:54Z,3,2,0,1,0,COMPLETED
+2026-08-25T09:51:20Z,3,2,0,1,0,COMPLETED

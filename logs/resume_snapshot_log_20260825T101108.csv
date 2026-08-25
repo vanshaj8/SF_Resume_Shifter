@@ -1,0 +1,2 @@
+runTimestamp,applicationId,candidateId,status,attachmentPresent,errorMessage
+2026-08-25T10:11:08Z,547994,1104908,SKIPPED_ALREADY_SET,true,

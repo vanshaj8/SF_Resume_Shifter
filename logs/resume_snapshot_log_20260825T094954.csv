@@ -1,0 +1,4 @@
+runTimestamp,applicationId,candidateId,status,attachmentPresent,errorMessage
+2026-08-25T09:49:54Z,1001,501,SUCCESS,true,DRY_RUN_SIMULATION
+2026-08-25T09:49:54Z,1003,503,SKIPPED_NO_RESUME,false,Candidate profile does not contain a valid resume attachment.
+2026-08-25T09:49:54Z,1004,502,SUCCESS,true,DRY_RUN_SIMULATION
