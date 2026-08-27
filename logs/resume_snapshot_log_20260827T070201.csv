@@ -1,0 +1,2 @@
+runTimestamp,applicationId,candidateId,status,attachmentPresent,errorMessage
+2026-08-27T07:02:01Z,547994,1104908,SUCCESS,true,DRY_RUN_SIMULATION

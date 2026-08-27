@@ -124,3 +124,26 @@ def test_single_application_mode_execution(temp_env):
     assert result.status == ApplicationStatus.SUCCESS
     assert result.application_id == "1001"
     assert result.attachment_present is True
+
+
+def test_concurrent_batch_run_execution(temp_env):
+    """Verifies that multi-threaded batch run (concurrency=4) correctly processes all records."""
+    engine = temp_env["engine"]
+    summary = engine.run(concurrency=4)
+    assert summary.run_status == RunStatus.COMPLETED
+    assert summary.applications_found == 4
+    assert summary.succeeded == 2
+    assert summary.skipped_already_set == 1
+    assert summary.skipped_no_resume == 1
+    assert summary.failed == 0
+    assert summary.elapsed_seconds >= 0.0
+    assert summary.throughput_records_per_sec >= 0.0
+
+
+def test_batch_run_with_skip_verification(temp_env):
+    """Verifies batch run executes successfully when verify=False is specified."""
+    engine = temp_env["engine"]
+    summary = engine.run(verify=False)
+    assert summary.run_status == RunStatus.COMPLETED
+    assert summary.succeeded == 2
+

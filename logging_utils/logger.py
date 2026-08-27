@@ -12,25 +12,37 @@ from typing import Optional
 
 
 class SensitiveDataFilter(logging.Filter):
-    """Redacts sensitive tokens, private keys, and passwords from log records."""
+    """Redacts sensitive tokens, private keys, and passwords from log records efficiently."""
 
-    PATTERNS = [
+    _PATTERNS = (
         (re.compile(r"Bearer\s+[A-Za-z0-9\-\._~\+\/]+=*", re.IGNORECASE), "Bearer [REDACTED]"),
         (re.compile(r"Basic\s+[A-Za-z0-9\+/=]+", re.IGNORECASE), "Basic [REDACTED]"),
         (re.compile(r"-----BEGIN [A-Z ]+ PRIVATE KEY-----.*?-----END [A-Z ]+ PRIVATE KEY-----", re.DOTALL), "[PRIVATE KEY REDACTED]"),
         (re.compile(r'"fileContent"\s*:\s*"[^"]+"'), '"fileContent": "[BASE64 CONTENT REDACTED]"'),
-    ]
+    )
+
+    # Keywords to fast-check if regex is needed
+    _KEYWORDS = ("bearer", "basic", "private key", "filecontent")
+
+    @classmethod
+    def _sanitize(cls, text: str) -> str:
+        """Fast-path sanitization: skip regex unless a keyword is present."""
+        lower_text = text.lower()
+        if not any(kw in lower_text for kw in cls._KEYWORDS):
+            return text
+        result = text
+        for pattern, repl in cls._PATTERNS:
+            result = pattern.sub(repl, result)
+        return result
 
     def filter(self, record: logging.LogRecord) -> bool:
         if isinstance(record.msg, str):
-            for pattern, repl in self.PATTERNS:
-                record.msg = pattern.sub(repl, record.msg)
+            record.msg = self._sanitize(record.msg)
         if record.args:
             clean_args = []
             for arg in record.args:
                 if isinstance(arg, str):
-                    for pattern, repl in self.PATTERNS:
-                        arg = pattern.sub(repl, arg)
+                    arg = self._sanitize(arg)
                 clean_args.append(arg)
             record.args = tuple(clean_args)
         return True

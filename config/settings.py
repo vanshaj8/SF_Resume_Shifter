@@ -76,6 +76,21 @@ class AppConfig(BaseSettings):
         default=1000,
         description="Number of records to fetch per OData $top page (max 1000)",
     )
+    max_workers: int = Field(
+        default=5,
+        ge=1,
+        le=50,
+        description="Number of parallel worker threads for batch application processing (1 = sequential)",
+    )
+    verify_upsert: bool = Field(
+        default=True,
+        description="Whether to perform an explicit GET request to verify Cust_Candidate_Resume post-upsert",
+    )
+    candidate_cache_size: int = Field(
+        default=2000,
+        ge=0,
+        description="Maximum number of candidate profile resumes to cache in-memory during batch processing",
+    )
     request_timeout_seconds: int = Field(
         default=60,
         description="HTTP request timeout in seconds",

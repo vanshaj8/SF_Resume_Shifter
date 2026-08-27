@@ -156,3 +156,28 @@ def test_dry_run_mode(processor, client, mock_db):
     # Verify DB was NOT modified
     app_1004_db = client.get_application("1004")
     assert not app_1004_db.is_custom_resume_populated
+
+
+def test_candidate_resume_cache_hit(client):
+    """Verify that candidate profile resume is cached in memory for repeat queries."""
+    # First fetch populates cache
+    res1 = client.get_candidate_resume("501")
+    assert res1.file_name == "Resume_A.pdf"
+    assert len(client.candidate_cache) == 1
+
+    # Second fetch returns from cache
+    res2 = client.get_candidate_resume("501")
+    assert res2.file_name == "Resume_A.pdf"
+    assert res1 is res2
+
+
+def test_process_application_with_skip_verification(processor, client):
+    """Verify that verify=False bypasses Step 6 verification even if verification would fail."""
+    app_1004 = client.get_application("1004")
+    # Simulate a verification mismatch that would fail Step 6 if called
+    client.fail_next_verification = True
+
+    # With verify=False, it should succeed without calling verification
+    result = processor.process_application(app_1004, verify=False)
+    assert result.status == ApplicationStatus.SUCCESS
+

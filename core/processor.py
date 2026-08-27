@@ -33,8 +33,9 @@ class ApplicationProcessor:
     Guarantees that Cust_Candidate_Resume is treated as WRITE-ONCE and frozen forever.
     """
 
-    def __init__(self, client: SFODataClient) -> None:
+    def __init__(self, client: SFODataClient, default_verify: bool = True) -> None:
         self.client = client
+        self.default_verify = default_verify
 
     def process_application(
         self,
@@ -42,21 +43,23 @@ class ApplicationProcessor:
         run_timestamp: Optional[str] = None,
         dry_run: bool = False,
         force: bool = False,
+        verify: Optional[bool] = None,
     ) -> ProcessResult:
         """
         Executes the 7-step single application processing flow:
-        
+
         Step 1: Check JobApplication.Cust_Candidate_Resume -> SKIPPED_ALREADY_SET if populated (unless force=True).
-        Step 2: Retrieve Candidate resume (GET Candidate with $expand=resume).
+        Step 2: Retrieve Candidate resume (GET Candidate with $expand=resume, with LRU cache).
         Step 3: Validate resume existence, fileContent, and fileName -> SKIPPED_NO_RESUME if missing.
-        Step 4: Build copy payload with fileName formatted as CandidateResume_<candidate_id>.<ext>.
+        Step 4: Build copy payload preserving exact original candidate fileName and base64 fileContent.
         Step 5: Update Job Application via POST /odata/v2/upsert.
-        Step 6: Verify upsert via GET JobApplication with $expand=Cust_Candidate_Resume.
+        Step 6: Verify upsert via GET JobApplication with $expand=Cust_Candidate_Resume (optional/configurable).
         Step 7: Mark result as SUCCESS or FAILED.
         """
         ts = run_timestamp or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         app_id = application.application_id
         cand_id = application.candidate_id
+        should_verify = self.default_verify if verify is None else verify
 
         logger.info(
             "--- Processing Application ID: %s | Candidate ID: %s ---",
@@ -168,20 +171,22 @@ class ApplicationProcessor:
             )
 
             # ---------------------------------------------------------------------
-            # Step 6: Verify Job Application
+            # Step 6: Verify Job Application (Conditional)
             # ---------------------------------------------------------------------
-            logger.info("[Step 6] Verifying JobApplication %s Cust_Candidate_Resume persistence...", app_id)
-            verified_app = self.client.verify_job_application_resume(
-                application_id=app_id,
-                expected_file_name=file_name,
-            )
-
-            logger.info(
-                "[Step 6] Verification passed for application %s (Attachment ID: %s, File: '%s').",
-                app_id,
-                verified_app.custom_resume_attachment_id,
-                verified_app.custom_resume_file_name,
-            )
+            if should_verify:
+                logger.info("[Step 6] Verifying JobApplication %s Cust_Candidate_Resume persistence...", app_id)
+                verified_app = self.client.verify_job_application_resume(
+                    application_id=app_id,
+                    expected_file_name=file_name,
+                )
+                logger.info(
+                    "[Step 6] Verification passed for application %s (Attachment ID: %s, File: '%s').",
+                    app_id,
+                    verified_app.custom_resume_attachment_id,
+                    verified_app.custom_resume_file_name,
+                )
+            else:
+                logger.debug("[Step 6] Post-upsert GET verification skipped (verify=False).")
 
             # ---------------------------------------------------------------------
             # Step 7: Mark Result SUCCESS

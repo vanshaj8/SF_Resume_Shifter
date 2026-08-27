@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import logging
 import re
+import threading
+from collections import OrderedDict
 from datetime import datetime, timezone
 from typing import Any, Generator, Optional
 import requests
@@ -25,6 +27,9 @@ from core.models import CandidateResumeData, JobApplicationData
 
 logger = logging.getLogger("ResumeShifter.ODataClient")
 
+# Precompiled regex for SAP OData epoch timestamp matching
+_SF_DATE_EPOCH_PATTERN = re.compile(r"^/Date\((\d+)(?:[+-]\d+)?\)/$")
+
 
 def parse_sf_odata_datetime(date_str: Any) -> Optional[datetime]:
     """
@@ -35,13 +40,15 @@ def parse_sf_odata_datetime(date_str: Any) -> Optional[datetime]:
     if not date_str or not isinstance(date_str, str):
         return None
 
-    epoch_match = re.search(r"/Date\((\d+)([+-]\d+)?\)/", date_str)
-    if epoch_match:
-        ms = int(epoch_match.group(1))
-        return datetime.fromtimestamp(ms / 1000.0, tz=timezone.utc)
+    # Fast-path 1: SAP Epoch Date format /Date(ms)/
+    if date_str.startswith("/Date("):
+        epoch_match = _SF_DATE_EPOCH_PATTERN.match(date_str.strip())
+        if epoch_match:
+            ms = int(epoch_match.group(1))
+            return datetime.fromtimestamp(ms / 1000.0, tz=timezone.utc)
 
+    # Fast-path 2: Standard ISO-8601
     try:
-        # Standard ISO 8601
         clean_str = date_str.replace("Z", "+00:00")
         return datetime.fromisoformat(clean_str)
     except (ValueError, TypeError):
@@ -54,6 +61,48 @@ def format_sf_odata_filter_datetime(dt: datetime) -> str:
     return f"datetime'{utc_dt.strftime('%Y-%m-%dT%H:%M:%S')}'"
 
 
+class CandidateResumeCache:
+    """
+    Thread-safe in-memory LRU cache for candidate profile resumes.
+    Prevents redundant network fetches when a candidate has applied to multiple jobs in a batch.
+    """
+
+    def __init__(self, max_size: int = 2000) -> None:
+        self.max_size = max_size
+        self._cache: OrderedDict[str, CandidateResumeData] = OrderedDict()
+        self._lock = threading.RLock()
+
+    def get(self, candidate_id: str) -> Optional[CandidateResumeData]:
+        """Retrieve candidate resume from cache if present, updating LRU order."""
+        if self.max_size <= 0:
+            return None
+        with self._lock:
+            if candidate_id in self._cache:
+                self._cache.move_to_end(candidate_id)
+                return self._cache[candidate_id]
+            return None
+
+    def put(self, candidate_id: str, data: CandidateResumeData) -> None:
+        """Store candidate resume in cache with LRU eviction when capacity is exceeded."""
+        if self.max_size <= 0:
+            return
+        with self._lock:
+            if candidate_id in self._cache:
+                self._cache.move_to_end(candidate_id)
+            self._cache[candidate_id] = data
+            if len(self._cache) > self.max_size:
+                self._cache.popitem(last=False)
+
+    def clear(self) -> None:
+        """Evict all cached entries."""
+        with self._lock:
+            self._cache.clear()
+
+    def __len__(self) -> int:
+        with self._lock:
+            return len(self._cache)
+
+
 class SFODataClient:
     """Production client for SAP SuccessFactors Recruiting OData v2 API."""
 
@@ -61,9 +110,10 @@ class SFODataClient:
         self.config = config
         self.auth_provider = auth_provider
         self.session = self._create_resilient_session()
+        self.candidate_cache = CandidateResumeCache(max_size=config.candidate_cache_size)
 
     def _create_resilient_session(self) -> requests.Session:
-        """Create a requests session with HTTP connection pooling and exponential retries."""
+        """Create a requests session with scaled HTTP connection pooling and exponential retries."""
         session = requests.Session()
         retries = Retry(
             total=self.config.max_retries,
@@ -72,14 +122,31 @@ class SFODataClient:
             allowed_methods=["GET", "POST", "PUT", "DELETE"],
             raise_on_status=False,
         )
+        pool_connections = max(10, self.config.max_workers * 2)
+        pool_maxsize = max(20, self.config.max_workers * 4)
+
         adapter = HTTPAdapter(
             max_retries=retries,
-            pool_connections=10,
-            pool_maxsize=20,
+            pool_connections=pool_connections,
+            pool_maxsize=pool_maxsize,
         )
         session.mount("https://", adapter)
         session.mount("http://", adapter)
         return session
+
+    def close(self) -> None:
+        """Release underlying HTTP connections and clear cache."""
+        try:
+            self.session.close()
+        except Exception:
+            pass
+        self.candidate_cache.clear()
+
+    def __enter__(self) -> "SFODataClient":
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        self.close()
 
     def _request(
         self,
@@ -293,11 +360,18 @@ class SFODataClient:
             custom_resume_raw=raw_cust,
         )
 
-    def get_candidate_resume(self, candidate_id: str) -> CandidateResumeData:
+    def get_candidate_resume(self, candidate_id: str, use_cache: bool = True) -> CandidateResumeData:
         """
         Retrieve Candidate profile with expanded resume attachment object.
         GET Candidate(<candidateId>)?$expand=resume
+        Utilizes thread-safe in-memory cache to avoid duplicate network round trips.
         """
+        if use_cache:
+            cached = self.candidate_cache.get(candidate_id)
+            if cached is not None:
+                logger.debug("Cache hit for candidate %s resume", candidate_id)
+                return cached
+
         path = f"Candidate({candidate_id})"
         params = {
             "$expand": "resume",
@@ -308,24 +382,33 @@ class SFODataClient:
         raw_res = self._request("GET", path, params=params)
         data = raw_res.get("d", raw_res)
         if not data:
-            return CandidateResumeData(candidate_id=candidate_id)
+            result = CandidateResumeData(candidate_id=candidate_id)
+            if use_cache:
+                self.candidate_cache.put(candidate_id, result)
+            return result
 
         resume_obj = data.get("resume")
         if not isinstance(resume_obj, dict):
-            return CandidateResumeData(candidate_id=candidate_id)
+            result = CandidateResumeData(candidate_id=candidate_id)
+            if use_cache:
+                self.candidate_cache.put(candidate_id, result)
+            return result
 
         att_id = str(resume_obj.get("attachmentId", ""))
         file_name = resume_obj.get("fileName")
         file_content = resume_obj.get("fileContent")
         module = resume_obj.get("module", "RECRUITING")
 
-        return CandidateResumeData(
+        result = CandidateResumeData(
             candidate_id=candidate_id,
             attachment_id=att_id if att_id and att_id != "None" else None,
             file_name=file_name,
             file_content_b64=file_content,
             module=module if module else "RECRUITING",
         )
+        if use_cache:
+            self.candidate_cache.put(candidate_id, result)
+        return result
 
     def upsert_job_application_resume(
         self,

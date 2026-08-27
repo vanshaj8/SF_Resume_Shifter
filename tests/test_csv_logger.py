@@ -84,3 +84,34 @@ def test_summary_csv_logger(tmp_path):
         assert reader[0]["skippedNoResume"] == "1"
         assert reader[0]["failed"] == "0"
         assert reader[0]["runStatus"] == "COMPLETED"
+
+
+def test_run_csv_logger_concurrent_writes(tmp_path):
+    """Verify thread-safe multi-worker writing to RunCSVLogger."""
+    import concurrent.futures
+
+    logs_dir = tmp_path / "logs"
+    ts = "2026-08-25T12:00:00Z"
+    logger = RunCSVLogger(logs_dir=logs_dir, timestamp_str=ts)
+
+    def _worker_write(app_id: int):
+        res = ProcessResult(
+            run_timestamp=ts,
+            application_id=str(app_id),
+            candidate_id=f"cand_{app_id}",
+            status=ApplicationStatus.SUCCESS,
+            attachment_present=True,
+            error_message="",
+        )
+        logger.write_row(res)
+
+    with logger:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            list(executor.map(_worker_write, range(50)))
+
+    with open(logger.file_path, "r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+        assert len(rows) == 50
+        app_ids = {r["applicationId"] for r in rows}
+        assert len(app_ids) == 50
+

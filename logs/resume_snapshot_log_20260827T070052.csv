@@ -1,0 +1,5 @@
+runTimestamp,applicationId,candidateId,status,attachmentPresent,errorMessage
+2026-08-27T07:00:52Z,1001,501,SUCCESS,true,
+2026-08-27T07:00:52Z,1002,501,SKIPPED_ALREADY_SET,true,
+2026-08-27T07:00:52Z,1004,502,SUCCESS,true,
+2026-08-27T07:00:52Z,1003,503,SKIPPED_NO_RESUME,false,Candidate profile does not contain a valid resume attachment.

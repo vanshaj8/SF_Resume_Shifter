@@ -86,6 +86,19 @@ Examples:
         help="Override watermark filter starting timestamp for this batch run (e.g. '2026-01-01T00:00:00Z')",
     )
     parser.add_argument(
+        "-c",
+        "--concurrency",
+        type=int,
+        default=None,
+        metavar="WORKERS",
+        help="Number of concurrent worker threads for parallel batch execution (default: 5, 1=sequential)",
+    )
+    parser.add_argument(
+        "--skip-verify",
+        action="store_true",
+        help="Skip post-upsert GET verification step to maximize throughput",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Simulate execution without modifying SAP SuccessFactors records or advancing watermark",
@@ -176,7 +189,12 @@ def main() -> int:
             logger.error("Failed to initialize SuccessFactors OData client: %s", e)
             return 1
 
-    processor = ApplicationProcessor(client)
+    if args.concurrency is not None:
+        config.max_workers = max(1, args.concurrency)
+    if args.skip_verify:
+        config.verify_upsert = False
+
+    processor = ApplicationProcessor(client=client, default_verify=config.verify_upsert)
     engine = BatchEngine(
         config=config,
         client=client,
@@ -192,6 +210,7 @@ def main() -> int:
             application_id=args.single,
             dry_run=args.dry_run,
             force=args.force,
+            verify=config.verify_upsert,
         )
 
     if args.batch:
@@ -199,6 +218,8 @@ def main() -> int:
             since_timestamp=since_dt,
             dry_run=args.dry_run,
             force=args.force,
+            concurrency=config.max_workers,
+            verify=config.verify_upsert,
         )
 
     return 0
