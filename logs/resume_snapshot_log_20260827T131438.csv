@@ -1,0 +1,3 @@
+runTimestamp,applicationId,candidateId,status,attachmentPresent,errorMessage
+2026-08-27T13:14:38Z,548010,1104923,SUCCESS,true,
+2026-08-27T13:14:38Z,548011,1104924,SUCCESS,true,

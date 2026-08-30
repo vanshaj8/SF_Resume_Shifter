@@ -147,3 +147,85 @@ def test_batch_run_with_skip_verification(temp_env):
     assert summary.run_status == RunStatus.COMPLETED
     assert summary.succeeded == 2
 
+
+def test_watermark_preservation_on_individual_application_failure(temp_env, monkeypatch):
+    """
+    Verifies that if an individual application processing fails:
+    - Watermark is preserved at the previous state (NOT advanced).
+    - Overall run_status is marked ERRORED so next run retries.
+    """
+    engine = temp_env["engine"]
+    wm_mgr = temp_env["wm_mgr"]
+
+    initial_wm = datetime(2026, 8, 1, 0, 0, 0, tzinfo=timezone.utc)
+    wm_mgr.save_watermark(initial_wm)
+
+    # Monkeypatch process_application to fail on application 1001
+    orig_process = engine.process_application
+
+    def fail_1001(application, run_timestamp_str, **kwargs):
+        if application.application_id == "1001":
+            return ProcessResult(
+                run_timestamp=run_timestamp_str,
+                application_id=application.application_id,
+                candidate_id=application.candidate_id,
+                status=ApplicationStatus.FAILED,
+                error_message="Simulated processing exception",
+            )
+        return orig_process(application, run_timestamp_str, **kwargs)
+
+    monkeypatch.setattr(engine, "process_application", fail_1001)
+
+    summary = engine.run()
+    assert summary.failed == 1
+    assert summary.run_status == RunStatus.ERRORED
+
+    # Watermark must remain preserved at initial_wm
+    assert wm_mgr.get_watermark() == initial_wm
+
+
+def test_intermediate_application_captured_in_next_run(temp_env):
+    """
+    Verifies that an application created DURING Run 1 (after discovery query fires)
+    is still discovered in Run 2 because Run 1's watermark was saved as run_start_time.
+    """
+    engine = temp_env["engine"]
+    db = temp_env["db"]
+    wm_mgr = temp_env["wm_mgr"]
+
+    # Initial run processes all 4 pre-seeded applications
+    summary_1 = engine.run()
+    assert summary_1.run_status == RunStatus.COMPLETED
+    assert summary_1.applications_found == 4
+
+    saved_wm_1 = wm_mgr.get_watermark()
+    assert saved_wm_1 is not None
+
+    # Simulate new application 2001 created 1 second after Run 1's start_time
+    app_date_dt = datetime.fromtimestamp(saved_wm_1.timestamp() + 1.0, tz=timezone.utc)
+    sample_b64 = base64.b64encode(b"%PDF-1.4 New Resume Content").decode("utf-8")
+    db.candidates["9901"] = {
+        "candidateId": "9901",
+        "firstName": "New",
+        "lastName": "Applicant",
+        "resume": {
+            "attachmentId": "20001",
+            "fileName": "new_resume.pdf",
+            "fileContent": sample_b64,
+            "module": "RECRUITING",
+        },
+    }
+    db.job_applications["2001"] = {
+        "applicationId": "2001",
+        "candidateId": "9901",
+        "applicationDate": app_date_dt,
+        "Cust_Candidate_Resume": None,
+    }
+
+    # Run 2 starts now and uses saved_wm_1
+    summary_2 = engine.run()
+    assert summary_2.run_status == RunStatus.COMPLETED
+    assert summary_2.applications_found == 1
+    assert summary_2.succeeded == 1
+
+

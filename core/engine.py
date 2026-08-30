@@ -294,17 +294,22 @@ class BatchEngine:
             logger.exception("Fatal batch processing error during discovery or execution: %s", exc)
             summary.run_status = RunStatus.ERRORED
             summary.failed += 1
-
         end_time = datetime.now(timezone.utc)
         summary.elapsed_seconds = round((end_time - start_time).total_seconds(), 2)
 
-        # 3. Watermark Commit or Preservation
-        if summary.run_status == RunStatus.COMPLETED and not dry_run:
-            logger.info("Batch completed successfully. Advancing watermark to run timestamp: %s", run_ts_str)
+        # 3. Watermark Commit or Preservation (All-or-Nothing check)
+        all_succeeded = (summary.run_status == RunStatus.COMPLETED and summary.failed == 0)
+
+        if all_succeeded and not dry_run:
+            logger.info("Batch completed successfully (all %d succeeded/skipped, 0 failed). Advancing watermark to run start timestamp: %s", summary.applications_found, run_ts_str)
             self.watermark_manager.save_watermark(start_time)
-        elif summary.run_status == RunStatus.ERRORED:
+        elif not all_succeeded:
+            if summary.failed > 0 and summary.run_status == RunStatus.COMPLETED:
+                summary.run_status = RunStatus.ERRORED
             logger.warning(
-                "Batch finished with ERRORED status. Watermark PRESERVED at previous state to enable replay."
+                "Batch finished with %s status (failed=%d). Watermark PRESERVED at previous state to enable retry on next run.",
+                summary.run_status.value,
+                summary.failed,
             )
         elif dry_run:
             logger.info("[DRY RUN] Watermark not updated.")
